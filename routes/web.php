@@ -24,9 +24,13 @@ Route::get('/', function () {
 Route::get('/test', [TestController::class, 'test'])
 ->name('test');
 
-Route::get('post/create', [PostController::class, 'create']);
+Route::get('post/create', [PostController::class, 'create'])->middleware(['auth','admin']);
 
 Route::post('post', [PostController::class, 'store'])->name('post.store');
+
+Route::get('post', [PostController::class, 'index']);
+
+Route::get('post/show/{post}', [PostController::class, 'show'])->name('post.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -16,9 +16,9 @@
         </style>
     </head>
     <body class="antialiased">
-        @for ($i = 0; $i < 10; $i++)
-            {{ $i }},
-        @endfor
+        @can('test')
+            TestGate
+        @endcan
         @auth
             <p>
                 {{ Auth::user()->name}}, welcome!!
