@@ -10,6 +10,7 @@
                 {{session('message')}}
             </div>
         @endif
+        <x-message :message="session('message')" />
         <form method="post" action="{{ route('post.store') }}">
             @csrf
             <div class="mt-8">
