@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -26,12 +26,17 @@ class PostController extends Controller
     }
 
     public function index(){
-        $posts=post::where('user_id',auth()->id())->get();
+        //$posts=post::where('user_id',auth()->id())->get();
+        $posts=Post::paginate(5);
         return view('post.index',compact('posts'));
     }
 
     public function show(Post $post){
         return view('post.show',compact('post'));
+    }
+
+    public function edit(Post $post){
+        return view('post.edit',compact('post'));
     }
 
     public function update(Request $request, Post $post){
@@ -44,5 +49,11 @@ class PostController extends Controller
         session()->flash('message','body was successfully updated');
 
         return back();
+    }
+
+    public function destroy(Request $request, Post $post){
+        $post->delete();
+        session()->flash('message','The content was successfully deleted');
+        return redirect()->route('post.index');
     }
 }
